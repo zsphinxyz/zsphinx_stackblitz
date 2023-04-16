@@ -8,6 +8,9 @@ const Score = ({ mark, total }) => {
       <h1>
         {mark} out of {total} questions correct!
       </h1>
+      <p>
+        Go to <a href="https://zsphinx.stackblitz.io"> Home </a>
+      </p>
     </div>
   );
 };
@@ -50,31 +53,51 @@ export default function App() {
   const quiz = [
     {
       id: 1,
-      question: 'Http stands for: ',
+      question: 'What is a domain name?',
       ans: [
-        'Hyper Text Transmit Protocol',
-        'Hyper Text Transfer Protocol',
-        'Hyper Text Tansit Protocol',
-      ],
-      correct_ans: 1,
-    },
-    {
-      id: 2,
-      question: 'CSS stands for: ',
-      ans: [
-        'Cascading Style Sheet',
-        'Cascading Style Sheets',
-        'Cascating Style Sheet',
+        'The address of a website on the internet',
+        'A tool used to measure website traffic',
+        'A program used to design webpages',
       ],
       correct_ans: 0,
     },
     {
-      id: 3,
-      question: 'HTML stands for: ',
+      id: 2,
+      question: 'What is a web application?',
       ans: [
-        'Hyper Text Markup Language',
-        'Home Text Markup Language',
-        'Hyper Text Mail Language',
+        'A tool used to measure website traffic',
+        'A program that runs in a web browser',
+        'A program used to design webpages',
+      ],
+      correct_ans: 1,
+    },
+    {
+      id: 3,
+      question: 'What is a SSL certificate?',
+      ans: [
+        'A type of programming language',
+        'A type of file format',
+        'A digital certificate that encrypts information transmitted over the internet',
+      ],
+      correct_ans: 2,
+    },
+    {
+      id: 4,
+      question: 'What is a web server?',
+      ans: [
+        'A program that designs webpages',
+        'A computer that stores and delivers webpages',
+        'A tool used to measure website traffic',
+      ],
+      correct_ans: 1,
+    },
+    {
+      id: 5,
+      question: 'What is a web browser?',
+      ans: [
+        'A program used to access websites',
+        'A tool used to measure website traffic',
+        'A program used to design webpages',
       ],
       correct_ans: 0,
     },
@@ -116,7 +139,7 @@ export default function App() {
                       type="radio"
                       name="choice"
                       value={i}
-                      // checked={isSubmit ? true : false}
+                      checked={!isSubmit ? null : false}
                       disabled={isDisable}
                       onChange={(e) => {
                         setUserChoice(e.target.value);
@@ -131,7 +154,10 @@ export default function App() {
           <button
             type="submit"
             className="submit"
-            style={isSubmit ? { cursor: 'not-allowed' } : {}}
+            disabled={userChoice == '' ? true : false}
+            style={
+              isSubmit || userChoice == '' ? { cursor: 'not-allowed' } : {}
+            }
           >
             Submit
           </button>

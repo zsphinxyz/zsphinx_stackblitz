@@ -40,6 +40,10 @@ ul li {
   margin: 10px 0;
   font-size: 20px;
   border-radius: 10px;
+  transition: all ease-in 0.2s;
+}
+ul li:hover {
+  transform: scale(1.03);
 }
 
 ul label {
