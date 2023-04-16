@@ -2,6 +2,32 @@ import * as React from 'react';
 import { useState } from 'react';
 import './style.css';
 
+
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCYqsmxJKZTzcideiQgm20LAer5-Re6nzg",
+  authDomain: "multiple-choice-quiz01.firebaseapp.com",
+  projectId: "multiple-choice-quiz01",
+  storageBucket: "multiple-choice-quiz01.appspot.com",
+  messagingSenderId: "47771108392",
+  appId: "1:47771108392:web:c09695682e3205d9bba11d",
+  measurementId: "G-KC9PMF3DK6"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+
+
 const Score = ({ mark, total }) => {
   return (
     <div className="score">
