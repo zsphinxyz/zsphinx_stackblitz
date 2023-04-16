@@ -28,7 +28,6 @@ export default function App() {
 
     if (userChoice == quiz[quizIndex].ans[quiz[quizIndex].correct_ans]) {
       setIsCorrect(true);
-      setMark(mark + 1);
     } else {
       setIsCorrect(false);
     }
@@ -38,6 +37,7 @@ export default function App() {
     setQuizIndex(quizIndex + 1);
 
     if (isSubmit) {
+      isCorrect ? setMark(mark + 1) : null;
       // reset all the States
       setIsCorrect(false);
       setIsSubmit(false);
@@ -106,8 +106,8 @@ export default function App() {
                   style={
                     isSubmit
                       ? i == quiz[quizIndex].ans[quiz[quizIndex].correct_ans]
-                        ? { backgroundColor: '#00ff0077' }
-                        : { backgroundColor: '#ff000077' }
+                        ? { backgroundColor: '#00ff0077', fontWeight: 'bold' }
+                        : { backgroundColor: '#ff000077', opacity: 0.5 }
                       : { backgroundColor: null }
                   }
                 >
@@ -139,8 +139,13 @@ export default function App() {
         <h3 className="info">
           {isSubmit ? (isCorrect ? 'Correct' : 'Wrong') : ''}
         </h3>
-        <button onClick={handleNext} className="next">
-          Next
+        <button
+          onClick={handleNext}
+          className="next"
+          disabled={!isSubmit ? true : false}
+          style={!isSubmit ? { cursor: 'not-allowed' } : {}}
+        >
+          {quizIndex + 1 == quiz.length ? 'See the Result' : 'Next'}
         </button>
       </div>
     );
