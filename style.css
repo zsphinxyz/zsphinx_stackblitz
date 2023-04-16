@@ -43,7 +43,7 @@ ul li {
   transition: all ease-in 0.2s;
 }
 ul li:hover {
-  transform: scale(1.03);
+  color: blueviolet;
 }
 
 ul label {
