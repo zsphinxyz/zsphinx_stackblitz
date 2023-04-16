@@ -2,33 +2,49 @@ import * as React from 'react';
 import { useState } from 'react';
 import './style.css';
 
+const Score = ({ mark, total }) => {
+  return (
+    <div className="score">
+      <h1>
+        {mark} out of {total} questions correct!
+      </h1>
+    </div>
+  );
+};
+
 export default function App() {
   const [quizIndex, setQuizIndex] = useState(0);
   const [userChoice, setUserChoice] = useState('');
-  const [checkRadio, setCheckRadio] = useState(false);
+  const [isDisable, setIsDisable] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [isSubmit, setIsSubmit] = useState(false);
+  const [mark, setMark] = useState(0);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     setIsSubmit(true);
+    setIsDisable(true);
 
     if (userChoice == quiz[quizIndex].ans[quiz[quizIndex].correct_ans]) {
       setIsCorrect(true);
+      setMark(mark + 1);
     } else {
       setIsCorrect(false);
     }
   };
 
-  const handleNext = () => {
+  const handleNext = (e) => {
     setQuizIndex(quizIndex + 1);
 
-    // reset all the States
-    setCheckRadio(false);
-    setIsCorrect(false);
-    setIsSubmit(false);
-    setUserChoice('');
+    if (isSubmit) {
+      // reset all the States
+      setIsCorrect(false);
+      setIsSubmit(false);
+      setUserChoice('');
+      setIsDisable(false);
+    } else {
+    }
   };
 
   const quiz = [
@@ -64,48 +80,69 @@ export default function App() {
     },
   ];
 
-  return (
-    <div className="container">
-      <h1 className="question">
-        {quiz[quizIndex].id}. {quiz[quizIndex].question}
-      </h1>
-      <form onSubmit={handleSubmit}>
-        <ul>
-          {quiz[quizIndex].ans.map((i) => {
-            return (
-              <li key={quiz.id}>
-                <label>
-                  <input
-                    type="radio"
-                    name="choice"
-                    value={i}
-                    checked={checkRadio}
-                    onChange={(e) => {
-                      setUserChoice(e.target.value);
-                      setCheckRadio(e.target.value.checked);
-                    }}
-                  />
-                  {' ' + i}
-                </label>
-              </li>
-            );
-          })}
-        </ul>
-        <button type="submit" className="submit">
-          Submit
+  if (quizIndex + 1 > quiz.length) {
+    return <Score mark={mark} total={quiz.length} />;
+  } else {
+    return (
+      <div
+        className="container"
+        style={
+          isSubmit
+            ? isCorrect
+              ? { backgroundColor: '#00ff0055', borderColor: 'green' }
+              : { backgroundColor: '#ff000055', borderColor: 'red' }
+            : { backgroundColor: '#ffffff55', borderColor: 'gray' }
+        }
+      >
+        <h1 className="question">
+          {quiz[quizIndex].id}. {quiz[quizIndex].question}
+        </h1>
+        <form onSubmit={handleSubmit}>
+          <ul>
+            {quiz[quizIndex].ans.map((i) => {
+              return (
+                <li
+                  key={quiz[quizIndex].ans.indexOf()}
+                  style={
+                    isSubmit
+                      ? i == quiz[quizIndex].ans[quiz[quizIndex].correct_ans]
+                        ? { backgroundColor: '#00ff0077' }
+                        : { backgroundColor: '#ff000077' }
+                      : { backgroundColor: null }
+                  }
+                >
+                  <label>
+                    <input
+                      type="radio"
+                      name="choice"
+                      value={i}
+                      // checked={isSubmit ? true : false}
+                      disabled={isDisable}
+                      onChange={(e) => {
+                        setUserChoice(e.target.value);
+                      }}
+                    />
+                    {' ' + i}
+                  </label>
+                </li>
+              );
+            })}
+          </ul>
+          <button
+            type="submit"
+            className="submit"
+            style={isSubmit ? { cursor: 'not-allowed' } : {}}
+          >
+            Submit
+          </button>
+        </form>
+        <h3 className="info">
+          {isSubmit ? (isCorrect ? 'Correct' : 'Wrong') : ''}
+        </h3>
+        <button onClick={handleNext} className="next">
+          Next
         </button>
-      </form>
-      <h3 className="info">
-        {isSubmit
-          ? isCorrect
-            ? 'Correct'
-            : 'Wrong. The correct answer is: ' +
-              quiz[quizIndex].ans[quiz[quizIndex].correct_ans]
-          : ''}
-      </h3>
-      <button onClick={handleNext} className="next">
-        Next
-      </button>
-    </div>
-  );
+      </div>
+    );
+  }
 }

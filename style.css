@@ -16,7 +16,8 @@ body {
   min-height: 70vh;
   display: flex;
   flex-direction: column;
-  border: solid 3px gray;
+  border: solid 7px gray;
+  border-radius: 3px;
   background-color: #ffffff55;
 }
 .question {
@@ -31,11 +32,14 @@ body {
 }
 ul {
   list-style: none;
-  margin: 20px;
+  padding: 20px;
+  transition: all ease-in 0.2s;
 }
 ul li {
   padding: 5px 0;
+  margin: 10px 0;
   font-size: 20px;
+  border-radius: 10px;
 }
 
 ul label {
@@ -46,7 +50,6 @@ ul label {
 .next {
   width: 100px;
   padding: 10px 5px;
-
   display: block;
   font-size: 14px;
   font-weight: bold;
@@ -62,6 +65,7 @@ ul label {
 }
 .next {
   margin-left: auto;
+  margin-top: 20px;
 }
 .submit:hover,
 .next:hover {
@@ -72,11 +76,10 @@ ul label {
 .info {
   width: 95%;
   height: 35px;
-  font-size: 16px;
-  color: #fff;
+  font-size: 18px;
+  text-align: center;
+  color: #000;
   line-height: 35px;
   padding-left: 15px;
   margin: 20px auto;
-  background-color: rgb(48, 48, 48);
-  border-radius: 25px;
 }
